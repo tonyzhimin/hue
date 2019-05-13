@@ -39,7 +39,7 @@ urlpatterns = [
   url(r'^query_history$', beeswax_views.list_query_history, name='list_query_history'),
 
   url(r'^configuration/?$', beeswax_views.configuration, name='configuration'),
-  url(r'^install_examples$', beeswax_views.install_examples, name='install_examples'),
+  url(r'^install_examples/?$', beeswax_views.install_examples, name='install_examples'),
   url(r'^query_cb/done/(?P<server_id>\S+)$', beeswax_views.query_done_cb, name='query_done_cb'),
 ]
 

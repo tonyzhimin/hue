@@ -32,5 +32,5 @@ urlpatterns = [
   url(r'^delete/$', pig_views.delete, name='delete'),
   url(r'^watch/(?P<job_id>[-\w]+)$', pig_views.watch, name='watch'),
   url(r'^stop/$', pig_views.stop, name='stop'),
-  url(r'^install_examples$', pig_views.install_examples, name='install_examples'),
+  url(r'^install_examples/?$', pig_views.install_examples, name='install_examples'),
 ]

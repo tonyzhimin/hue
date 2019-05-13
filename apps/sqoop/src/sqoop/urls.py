@@ -20,7 +20,7 @@ from sqoop import views as sqoop_views
 from sqoop import api as sqoop_api
 
 urlpatterns = [
-  url(r'^$', sqoop_views.app, name='index')
+  url(r'^/?$', sqoop_views.app, name='index')
 ]
 
 urlpatterns += [

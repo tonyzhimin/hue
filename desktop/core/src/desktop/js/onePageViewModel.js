@@ -232,7 +232,7 @@ class OnePageViewModel {
       $rawHtml.find('a[href]').each(function() {
         let link = $(this).attr('href');
         if (link.startsWith('/') && !link.startsWith('/hue')) {
-          link = '/hue' + link;
+          link = (window.HUE_BASE_URL.length ? window.HUE_BASE_URL : '/hue') + link;
         }
         $(this).attr('href', link);
       });
@@ -445,7 +445,7 @@ class OnePageViewModel {
     $(window.IS_EMBEDDED ? '.hue-embedded-container a[href]' : 'a[href]').each(function() {
       let link = $(this).attr('href');
       if (link.startsWith('/') && !link.startsWith('/hue')) {
-        link = '/hue' + link;
+        link = (window.HUE_BASE_URL.length ? window.HUE_BASE_URL : '/hue') + link;
       }
       $(this).attr('href', link);
     });
@@ -458,7 +458,7 @@ class OnePageViewModel {
       }
       page({ hashbang: true });
     } else {
-      page.base('/hue');
+      page.base(window.HUE_BASE_URL.length ? window.HUE_BASE_URL : '/hue');
     }
 
     const getUrlParameter = function(name) {
@@ -488,7 +488,7 @@ class OnePageViewModel {
       {
         url: '/accounts/logout',
         app: function() {
-          location.href = '/accounts/logout';
+          location.href = window.HUE_BASE_URL + '/accounts/logout';
         }
       },
       {
@@ -538,7 +538,7 @@ class OnePageViewModel {
       {
         url: '/desktop/download_logs',
         app: function() {
-          location.href = '/desktop/download_logs';
+          location.href = window.HUE_BASE_URL + '/desktop/download_logs';
         }
       },
       {
@@ -811,7 +811,7 @@ class OnePageViewModel {
 
     huePubSub.subscribe('open.link', href => {
       if (href) {
-        const prefix = window.IS_EMBEDDED ? '' : '/hue';
+        const prefix = window.IS_EMBEDDED ? '' : window.HUE_BASE_URL.length ? window.HUE_BASE_URL : '/hue';
         if (href.startsWith('/') && !href.startsWith(prefix)) {
           page(prefix + href);
         } else {

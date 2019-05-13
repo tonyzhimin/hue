@@ -18,13 +18,13 @@ from django.utils.translation import ugettext as _
 
 from desktop import conf
 from desktop.conf import USE_NEW_EDITOR
+from desktop.models import hue_version
 from desktop.lib.i18n import smart_unicode
+from desktop.lib.django_mako import hue_base, hue_base_webpack
 
 from metadata.conf import has_optimizer, OPTIMIZER
 
 from desktop.auth.backend import is_admin
-
-from webpack_loader.templatetags.webpack_loader import render_bundle
 
 home_url = url('desktop_views_home')
 if USE_NEW_EDITOR.get():
@@ -122,7 +122,10 @@ if USE_NEW_EDITOR.get():
   ${ commonHeaderFooterComponents.header_i18n_redirection() }
 
   % if user.is_authenticated():
-  <script src="/desktop/globalJsConstants.js"></script>
+  <%
+    global_constants_url = hue_base('/desktop/globalJsConstants.js?v=') + hue_version()
+  %>
+  <script src="${global_constants_url}"></script>
   % endif
 
   % if not conf.DEV.get():
@@ -130,12 +133,12 @@ if USE_NEW_EDITOR.get():
   % endif
 
   % if section == "login":
-    ${ render_bundle('login', config='LOGIN') | n,unicode }
+    <script src="${ hue_base_webpack('login', config='LOGIN') }"></script>
   %else:
-    ${ render_bundle('vendors~hue~notebook') | n,unicode }
-    ${ render_bundle('vendors~hue') | n,unicode }
-    ${ render_bundle('hue~notebook') | n,unicode }
-    ${ render_bundle('hue') | n,unicode }
+    <script src="${ hue_base_webpack('vendors~hue~notebook') }"></script>
+    <script src="${ hue_base_webpack('vendors~hue') }"></script>
+    <script src="${ hue_base_webpack('hue~notebook') }"></script>
+    <script src="${ hue_base_webpack('hue') }"></script>
   % endif
 
   <script src="${ static('desktop/js/bootstrap-tooltip.js') }"></script>
@@ -155,7 +158,7 @@ if USE_NEW_EDITOR.get():
   <script src="${ static('desktop/js/ace.extended.js') }"></script>
 
   <script>
-    ace.config.set("basePath", "/static/desktop/js/ace");
+    ace.config.set("basePath", "${ static('desktop/js/ace') }");
   </script>
 
   <script src="${ static('metastore/js/metastore.model.js') }"></script>
@@ -318,21 +321,21 @@ ${ hueIcons.symbols() }
       <li><a title="" data-rel="navigator-tooltip" href="#"><i class="fa fa-fw fa-user"></i>&nbsp;${user.username}</a></li>
     % endif
     % if 'help' in apps:
-    <li><a title="${_('Documentation')}" data-rel="navigator-tooltip" href="/help"><i class="fa fa-question-circle"></i></a></li>
+    <li><a title="${_('Documentation')}" data-rel="navigator-tooltip" data-bind="hueLink: '/help'" href="javascript: void(0);"><i class="fa fa-question-circle"></i></a></li>
     % endif
-    <li><a title="${_('Sign out')}" data-rel="navigator-tooltip" href="/accounts/logout/"><i class="fa fa-sign-out"></i></a></li>
+    <li><a title="${_('Sign out')}" data-rel="navigator-tooltip" data-bind="hueLink: '/accounts/logout/'" href="javascript: void(0);" ><i class="fa fa-sign-out"></i></a></li>
   </ul>
   % endif
 
   </div>
-    <a class="brand nav-tooltip pull-left" title="${_('About Hue')}" data-rel="navigator-tooltip" href="/about">
+    <a class="brand nav-tooltip pull-left" title="${_('About Hue')}" data-rel="navigator-tooltip" data-bind="hueLink: '/about'" href="javascript: void(0);">
       <svg style="margin-top: 2px; margin-left:8px;width: 60px;height: 16px;display: inline-block;">
         <use xlink:href="#hi-logo"></use>
       </svg>
     </a>
     % if user.is_authenticated() and section != 'login':
      <ul class="nav nav-pills pull-left">
-       <li><a title="${_('My documents')}" data-rel="navigator-tooltip" href="${ home_url }" style="padding-bottom:2px!important"><i class="fa fa-home" style="font-size: 19px"></i></a></li>
+       <li><a title="${_('My documents')}" data-rel="navigator-tooltip" data-bind="hueLink: '${ home_url }'" style="padding-bottom:2px!important"><i class="fa fa-home" style="font-size: 19px"></i></a></li>
        <%
          query_apps = count_apps(apps, ['beeswax', 'impala', 'rdbms', 'pig', 'jobsub', 'spark']);
        %>

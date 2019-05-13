@@ -20,6 +20,7 @@ from django.utils.translation import ugettext as _
 
 from desktop import conf
 from desktop.lib.i18n import smart_unicode
+from desktop.lib.django_mako import hue_base
 from desktop.views import _ko
 from notebook.conf import ENABLE_SQL_INDEXER
 
@@ -162,7 +163,7 @@ except ImportError, e:
 
 <%def name="downloadSnippetResults()">
   <script type="text/html" id="download-results-template">
-    <form method="POST" action="${ url('notebook:download') }" class="download-form" style="display: inline">
+    <form method="POST" action="${ hue_base(url('notebook:download')) }" class="download-form" style="display: inline">
       ${ csrf_token(request) | n,unicode }
       <input type="hidden" name="notebook"/>
       <input type="hidden" name="snippet"/>

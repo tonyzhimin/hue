@@ -28,6 +28,7 @@ from django.http import HttpResponse
 from mako.lookup import TemplateLookup, TemplateCollection
 
 from desktop.lib import apputil, i18n
+from webpack_loader.utils import _get_bundle 
 
 register = django.template.Library()
 
@@ -146,11 +147,22 @@ def static(path):
   Returns the URL to a file using the staticfiles's storage engine
   """
   try:
-    return staticfiles_storage.url(path)
+    return settings.HUE_BASE_URL + staticfiles_storage.url(path)
   except ValueError:
     # django.contrib.staticfiles raises a ValueError if the file we are looking
     # for is not in the staticfiles directory. This will result in a 500 error
     # in a mako script, which is a little unfriendly. Instead we'll return a
     # path to a non-existing file so the template renders and we can see the
     # missing file in the logs.
-    return settings.STATIC_URL + path
+    return settings.HUE_BASE_URL + settings.STATIC_URL + path
+
+def hue_base(path):
+  return settings.HUE_BASE_URL + path
+
+def hue_base_webpack(bundle_name, extension=None, config='DEFAULT', attrs=''):
+  bundle = _get_bundle(bundle_name, extension, config)
+  for chunk in bundle:
+    if chunk['name'].endswith(('.js', '.js.gz')):
+      return settings.HUE_BASE_URL + chunk['url']
+    elif chunk['name'].endswith(('.css', '.css.gz')):
+      return settings.HUE_BASE_URL + chunk['url']

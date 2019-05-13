@@ -30,7 +30,7 @@ urlpatterns = [
   url(r'^list_workflows/$', oozie_views_editor.list_workflows, name='list_workflows'),
   url(r'^list_trashed_workflows/$', oozie_views_editor.list_trashed_workflows, name='list_trashed_workflows'),
   url(r'^create_workflow/$', oozie_views_editor.create_workflow, name='create_workflow'),
-  url(r'^edit_workflow/(?P<workflow>\d+)$', oozie_views_editor.edit_workflow, name='edit_workflow'),
+  url(r'^edit_workflow/(?P<workflow>\d+)/?$', oozie_views_editor.edit_workflow, name='edit_workflow'),
   url(r'^delete_workflow$', oozie_views_editor.delete_workflow, name='delete_workflow'),
   url(r'^restore_workflow/$', oozie_views_editor.restore_workflow, name='restore_workflow'),
   url(r'^clone_workflow/(?P<workflow>\d+)$', oozie_views_editor.clone_workflow, name='clone_workflow'),
@@ -43,7 +43,7 @@ urlpatterns = [
   url(r'^list_coordinators/(?P<workflow_id>[-\w]+)?$', oozie_views_editor.list_coordinators, name='list_coordinators'),
   url(r'^list_trashed_coordinators/$', oozie_views_editor.list_trashed_coordinators, name='list_trashed_coordinators'),
   url(r'^create_coordinator/(?P<workflow>[-\w]+)?$', oozie_views_editor.create_coordinator, name='create_coordinator'),
-  url(r'^edit_coordinator/(?P<coordinator>[-\w]+)$', oozie_views_editor.edit_coordinator, name='edit_coordinator'),
+  url(r'^edit_coordinator/(?P<coordinator>[-\w]+)/?$', oozie_views_editor.edit_coordinator, name='edit_coordinator'),
   url(r'^delete_coordinator$', oozie_views_editor.delete_coordinator, name='delete_coordinator'),
   url(r'^restore_coordinator$', oozie_views_editor.restore_coordinator, name='restore_coordinator'),
   url(r'^clone_coordinator/(?P<coordinator>\d+)$', oozie_views_editor.clone_coordinator, name='clone_coordinator'),
@@ -55,7 +55,7 @@ urlpatterns = [
   url(r'^list_bundles$', oozie_views_editor.list_bundles, name='list_bundles'),
   url(r'^list_trashed_bundles$', oozie_views_editor.list_trashed_bundles, name='list_trashed_bundles'),
   url(r'^create_bundle$', oozie_views_editor.create_bundle, name='create_bundle'),
-  url(r'^edit_bundle/(?P<bundle>\d+)$', oozie_views_editor.edit_bundle, name='edit_bundle'),
+  url(r'^edit_bundle/(?P<bundle>\d+)/?$', oozie_views_editor.edit_bundle, name='edit_bundle'),
   url(r'^submit_bundle/(?P<bundle>\d+)$', oozie_views_editor.submit_bundle, name='submit_bundle'),
   url(r'^clone_bundle/(?P<bundle>\d+)$', oozie_views_editor.clone_bundle, name='clone_bundle'),
   url(r'^delete_bundle$', oozie_views_editor.delete_bundle, name='delete_bundle'),
@@ -65,7 +65,7 @@ urlpatterns = [
 
   url(r'^list_history$', oozie_views_editor.list_history, name='list_history'), # Unused
   url(r'^list_history/(?P<record_id>[-\w]+)$', oozie_views_editor.list_history_record, name='list_history_record'),
-  url(r'^install_examples/$', oozie_views_editor.install_examples, name='install_examples'),
+  url(r'^install_examples/?$', oozie_views_editor.install_examples, name='install_examples'),
 ]
 
 urlpatterns += [

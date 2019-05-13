@@ -19,6 +19,7 @@
 
   from desktop import conf
   from desktop.conf import IS_EMBEDDED, IS_K8S_ONLY, IS_MULTICLUSTER_ONLY
+  from desktop.lib.django_mako import hue_base
   from desktop.models import hue_version
 
   from beeswax.conf import LIST_PARTITIONS_LIMIT
@@ -47,6 +48,8 @@
   %else:
     window.CSRF_TOKEN = '';
   %endif
+
+  window.HUE_BASE_URL = '${hue_base('')}';
 
   window.HAS_MULTI_CLUSTER = '${ conf.has_multi_cluster() }' === 'True';
 

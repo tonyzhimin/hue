@@ -25,7 +25,7 @@ from indexer import api as indexer_api
 from indexer.conf import ENABLE_NEW_INDEXER
 
 urlpatterns = [
-  url(r'^install_examples$', indexer_views.install_examples, name='install_examples'),
+  url(r'^install_examples/?$', indexer_views.install_examples, name='install_examples'),
 
   url(r'^importer/$', indexer_views.importer, name='importer'),
   url(r'^importer/prefill/(?P<source_type>[^/]+)/(?P<target_type>[^/]+)/(?P<target_path>[^/]+)?$', indexer_views.importer_prefill, name='importer_prefill'),
@@ -33,14 +33,14 @@ urlpatterns = [
 
 if ENABLE_NEW_INDEXER.get():
   urlpatterns += [
-    url(r'^$', indexer_views.indexes, name='indexes'),
+    url(r'^/?$', indexer_views.indexes, name='indexes'),
     url(r'^indexes/$', indexer_views.indexes, name='indexes'),
     url(r'^indexes/(?P<index>[^/]+)/?$', indexer_views.indexes, name='indexes'),
-    url(r'^collections$', indexer_views.collections, name='collections'), # Old page
+    url(r'^collections/?$', indexer_views.collections, name='collections'), # Old page
   ]
 else:
   urlpatterns += [
-    url(r'^$', indexer_views.collections, name='collections'),
+    url(r'^/?$', indexer_views.collections, name='collections'),
     url(r'^indexes/$', indexer_views.indexes, name='indexes'),
   ]
 

@@ -127,6 +127,8 @@ STATICFILES_DIRS = (
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.CachedStaticFilesStorage'
 
 # For Django admin interface
+HUE_BASE_URL = '/gateway/sandbox/hue'
+#HUE_BASE_URL = ''
 STATIC_URL = '/static/'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'build', 'static')
@@ -146,6 +148,7 @@ MIDDLEWARE_CLASSES = [
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'desktop.middleware.ProxyMiddleware',
     'desktop.middleware.SpnegoMiddleware',
     'desktop.middleware.HueRemoteUserMiddleware',
     'django.middleware.locale.LocaleMiddleware',

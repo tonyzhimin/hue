@@ -20,15 +20,15 @@ from dashboard import views as dashboard_views
 from dashboard import api as dashboard_api
 
 urlpatterns = [
-  url(r'^$', dashboard_views.index, name='index'),
+  url(r'^/?$', dashboard_views.index, name='index'),
   url(r'^m$', dashboard_views.index_m, name='index_m'),
   url(r'^save$', dashboard_views.save, name='save'),
-  url(r'^new_search', dashboard_views.new_search, name='new_search'),
+  url(r'^new_search/?', dashboard_views.new_search, name='new_search'),
   url(r'^browse/(?P<name>[^/]+)/?', dashboard_views.browse, name='browse'),
   url(r'^browse_m/(?P<name>[^/]+)/?', dashboard_views.browse_m, name='browse_m'),
 
   # Admin
-  url(r'^admin/collections$', dashboard_views.admin_collections, name='admin_collections'),
+  url(r'^admin/collections/?$', dashboard_views.admin_collections, name='admin_collections'),
   url(r'^admin/collection_delete$', dashboard_views.admin_collection_delete, name='admin_collection_delete'),
   url(r'^admin/collection_copy$', dashboard_views.admin_collection_copy, name='admin_collection_copy'),
 ]

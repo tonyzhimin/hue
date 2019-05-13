@@ -59,54 +59,54 @@ admin.autodiscover()
 
 # Some django-wide URLs
 dynamic_patterns = [
-  url(r'^hue/accounts/login', desktop_auth_views.dt_login, name='desktop_auth_views_dt_login'),
+  url(r'^hue/accounts/login/?', desktop_auth_views.dt_login, name='desktop_auth_views_dt_login'),
   url(r'^accounts/login/$', desktop_auth_views.dt_login), # Deprecated
   url(r'^accounts/logout/$', desktop_auth_views.dt_logout, {'next_page': '/'}),
-  url(r'^profile$', desktop_auth_views.profile),
+  url(r'^profile/?$', desktop_auth_views.profile),
   url(r'^login/oauth/?$', desktop_auth_views.oauth_login),
   url(r'^login/oauth_authenticated/?$', desktop_auth_views.oauth_authenticated),
-  url(r'^hue/oidc_failed', desktop_auth_views.oidc_failed),
+  url(r'^hue/oidc_failed/?', desktop_auth_views.oidc_failed),
 ]
 
 if USE_NEW_EDITOR.get():
   dynamic_patterns += [
     url(r'^home/?$', desktop_views.home2, name='desktop_views_home2'),
-    url(r'^home2$', desktop_views.home, name='desktop_views_home'),
-    url(r'^home_embeddable$', desktop_views.home_embeddable),
+    url(r'^home2/?$', desktop_views.home, name='desktop_views_home'),
+    url(r'^home_embeddable/?$', desktop_views.home_embeddable),
   ]
 else:
   dynamic_patterns += [
-    url(r'^home$', desktop_views.home, name='desktop_views_home'),
-    url(r'^home2$', desktop_views.home2, name='desktop_views_home2')
+    url(r'^home/?$', desktop_views.home, name='desktop_views_home'),
+    url(r'^home2/?$', desktop_views.home2, name='desktop_views_home2')
   ]
 
 dynamic_patterns += [
-  url(r'^logs$', desktop_views.log_view, name="desktop.views.log_view"),
-  url(r'^desktop/log_analytics$', desktop_views.log_analytics),
-  url(r'^desktop/log_js_error$', desktop_views.log_js_error),
-  url(r'^desktop/dump_config$', desktop_views.dump_config, name="desktop.views.dump_config"),
-  url(r'^desktop/download_logs$', desktop_views.download_log_view),
-  url(r'^desktop/get_debug_level', desktop_views.get_debug_level),
-  url(r'^desktop/set_all_debug', desktop_views.set_all_debug),
-  url(r'^desktop/reset_all_debug', desktop_views.reset_all_debug),
+  url(r'^logs/?$', desktop_views.log_view, name="desktop.views.log_view"),
+  url(r'^desktop/log_analytics/?$', desktop_views.log_analytics),
+  url(r'^desktop/log_js_error/?$', desktop_views.log_js_error),
+  url(r'^desktop/dump_config/?$', desktop_views.dump_config, name="desktop.views.dump_config"),
+  url(r'^desktop/download_logs/?$', desktop_views.download_log_view),
+  url(r'^desktop/get_debug_level/?', desktop_views.get_debug_level),
+  url(r'^desktop/set_all_debug/?', desktop_views.set_all_debug),
+  url(r'^desktop/reset_all_debug/?', desktop_views.reset_all_debug),
   url(r'^bootstrap.js$', desktop_views.bootstrap), # unused
 
   url(r'^desktop/status_bar/?$', desktop_views.status_bar),
-  url(r'^desktop/debug/is_alive$', desktop_views.is_alive),
-  url(r'^desktop/debug/is_idle$', desktop_views.is_idle),
-  url(r'^desktop/debug/threads$', desktop_views.threads, name="desktop.views.threads"),
-  url(r'^desktop/debug/memory$', desktop_views.memory),
-  url(r'^desktop/debug/check_config$', desktop_views.check_config, name="desktop.views.check_config"),
-  url(r'^desktop/debug/check_config_ajax$', desktop_views.check_config_ajax),
-  url(r'^desktop/log_frontend_event$', desktop_views.log_frontend_event),
+  url(r'^desktop/debug/is_alive/?$', desktop_views.is_alive),
+  url(r'^desktop/debug/is_idle/?$', desktop_views.is_idle),
+  url(r'^desktop/debug/threads/?$', desktop_views.threads, name="desktop.views.threads"),
+  url(r'^desktop/debug/memory/?$', desktop_views.memory),
+  url(r'^desktop/debug/check_config/?$', desktop_views.check_config, name="desktop.views.check_config"),
+  url(r'^desktop/debug/check_config_ajax/?$', desktop_views.check_config_ajax),
+  url(r'^desktop/log_frontend_event/?$', desktop_views.log_frontend_event),
 
   # Mobile
   url(r'^assist_m', desktop_views.assist_m),
   # Hue 4
   url(r'^hue.*/$', desktop_views.hue, name='desktop_views_hue'),
-  url(r'^403$', desktop_views.path_forbidden),
-  url(r'^404$', desktop_views.not_found),
-  url(r'^500$', desktop_views.server_error),
+  url(r'^403/?$', desktop_views.path_forbidden),
+  url(r'^404/?$', desktop_views.not_found),
+  url(r'^500/?$', desktop_views.server_error),
 
   # KO components, change to doc?name=ko_editor or similar
   url(r'^ko_editor', desktop_views.ko_editor),
@@ -130,18 +130,18 @@ dynamic_patterns += [
 
 dynamic_patterns += [
   # Tags
-  url(r'^desktop/api/tag/add_tag$', desktop_api.add_tag),
-  url(r'^desktop/api/tag/remove_tag$', desktop_api.remove_tag),
-  url(r'^desktop/api/doc/tag$', desktop_api.tag),
-  url(r'^desktop/api/doc/update_tags$', desktop_api.update_tags),
-  url(r'^desktop/api/doc/get$', desktop_api.get_document),
+  url(r'^desktop/api/tag/add_tag/?$', desktop_api.add_tag),
+  url(r'^desktop/api/tag/remove_tag/?$', desktop_api.remove_tag),
+  url(r'^desktop/api/doc/tag/?$', desktop_api.tag),
+  url(r'^desktop/api/doc/update_tags/?$', desktop_api.update_tags),
+  url(r'^desktop/api/doc/get/?$', desktop_api.get_document),
 
   # Permissions
-  url(r'^desktop/api/doc/update_permissions', desktop_api.update_permissions),
+  url(r'^desktop/api/doc/update_permissions/?', desktop_api.update_permissions),
 ]
 
 dynamic_patterns += [
-  url(r'^desktop/api2/doc/open?$', desktop_api2.open_document),  # To keep before get_document
+  url(r'^desktop/api2/doc/open?/?$', desktop_api2.open_document),  # To keep before get_document
   url(r'^desktop/api2/docs/?$', desktop_api2.search_documents),  # search documents for current user
   url(r'^desktop/api2/doc/?$', desktop_api2.get_document),  # get doc/dir by path or UUID
 
@@ -157,7 +157,7 @@ dynamic_patterns += [
   url(r'^desktop/api2/context/namespaces/(?P<interface>[\w\-]+)/?$', desktop_api2.get_context_namespaces),
   url(r'^desktop/api2/context/computes/(?P<interface>[\w\-]+)/?$', desktop_api2.get_context_computes),
   url(r'^desktop/api2/context/clusters/(?P<interface>[\w\-]+)/?$', desktop_api2.get_context_clusters),
-  url(r'^desktop/api2/user_preferences/(?P<key>\w+)?$', desktop_api2.user_preferences, name="desktop.api2.user_preferences"),
+  url(r'^desktop/api2/user_preferences/(?P<key>\w+)?/?$', desktop_api2.user_preferences, name="desktop.api2.user_preferences"),
 
   url(r'^desktop/api2/doc/export/?$', desktop_api2.export_documents),
   url(r'^desktop/api2/doc/import/?$', desktop_api2.import_documents),
@@ -178,7 +178,7 @@ dynamic_patterns += [
 ]
 
 dynamic_patterns += [
-  url(r'^desktop/api/users/autocomplete', useradmin_views.list_for_autocomplete, name='useradmin_views_list_for_autocomplete'),
+  url(r'^desktop/api/users/autocomplete/?', useradmin_views.list_for_autocomplete, name='useradmin_views_list_for_autocomplete'),
   url(r'^desktop/api/users/?$', useradmin_views.get_users_by_id)
 ]
 

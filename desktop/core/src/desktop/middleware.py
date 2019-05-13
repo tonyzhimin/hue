@@ -523,7 +523,49 @@ class HtmlValidationMiddleware(object):
     return not request.is_ajax() and \
         'html' in response['Content-Type'] and \
         200 <= response.status_code < 300
+class ProxyMiddleware(object):
 
+  def __init__(self):
+    if not 'desktop.auth.backend.AllowAllBackend' in desktop.conf.AUTH.BACKEND.get():
+      LOG.info('Unloading ProxyMiddleware')
+      raise exceptions.MiddlewareNotUsed
+
+  def process_response(self, request, response):
+    return response
+
+  def process_request(self, request):
+    view_func = resolve(request.path)[0]
+    if view_func in DJANGO_VIEW_AUTH_WHITELIST:
+      return
+
+    # AuthenticationMiddleware is required so that request.user exists.
+    if not hasattr(request, 'user'):
+      raise exceptions.ImproperlyConfigured(
+        "The Django remote user auth middleware requires the"
+        " authentication middleware to be installed.  Edit your"
+        " MIDDLEWARE_CLASSES setting to insert"
+        " 'django.contrib.auth.middleware.AuthenticationMiddleware'"
+        " before the SpnegoUserMiddleware class.")
+
+    if request.GET.get('user.name'):
+      try:
+        username = request.GET.get('user.name')
+        user = authenticate(username=username, password='')
+        if user:
+          request.user = user
+          login(request, user)
+          msg = 'Successful login for user: %s' % request.user.username
+        else:
+          msg = 'Failed login for user: %s' % request.user.username
+        request.audit = {
+          'operation': 'USER_LOGIN',
+          'username': request.user.username,
+          'operationText': msg
+        }
+        return
+      except:
+        LOG.exception('Unexpected error when authenticating')
+        return
 
 class SpnegoMiddleware(object):
   """

@@ -19,6 +19,6 @@ from django.conf.urls import url
 from help import views as help_views
 
 urlpatterns = [
-  url(r'^$', help_views.view, { "app": "desktop", "path": "/index.html" }),
+  url(r'^/?$', help_views.view, { "app": "desktop", "path": "/index.html" }),
   url(r'^(?P<app>\w*)(?P<path>/.*)$', help_views.view, name='help.views.view'),
 ]

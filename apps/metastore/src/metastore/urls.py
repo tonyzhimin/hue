@@ -27,7 +27,7 @@ urlpatterns = [
   url(r'^databases/(?P<database>\w+)/metadata$', metastore_views.get_database_metadata, name='get_database_metadata'),
 
   url(r'^tables/(?P<database>\w+)?/?$', metastore_views.show_tables, name='show_tables'),
-  url(r'^tables/drop/(?P<database>\w+)$', metastore_views.drop_table, name='drop_table'),
+  url(r'^tables/drop/(?P<database>\w+)/?$', metastore_views.drop_table, name='drop_table'),
   url(r'^table/(?P<database>\w+)/(?P<table>\w+)/?$', metastore_views.describe_table, name='describe_table'),
   url(r'^table/(?P<database>\w+)/(?P<table>\w+)/alter$', metastore_views.alter_table, name='alter_table'),
   url(r'^table/(?P<database>\w+)/(?P<table>\w+)/metadata$', metastore_views.get_table_metadata, name='get_table_metadata'),

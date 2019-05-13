@@ -15,11 +15,12 @@
 ## limitations under the License.
 
 <%!
+  from desktop.lib.django_mako import hue_base
   from webpack_loader import utils
 %>
 
 % for js_file in utils.get_files('sqlLocationWebWorker', config='WORKERS'):
-  importScripts('${ js_file.get('url') }');
+  importScripts('${ hue_base(js_file.get('url')) }');
 % endfor
 
 (function () {

@@ -19,8 +19,8 @@ from django.conf.urls import url
 from about import views as about_views
 
 urlpatterns = [
-  url(r'^$', about_views.admin_wizard, name='index'),
-  url(r'^admin_wizard$', about_views.admin_wizard, name='admin_wizard'),
+  url(r'^/?$', about_views.admin_wizard, name='index'),
+  url(r'^admin_wizard/?$', about_views.admin_wizard, name='admin_wizard'),
 
   url(r'^update_preferences$', about_views.update_preferences, name='update_preferences'),
 ]
