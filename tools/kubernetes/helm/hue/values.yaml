@@ -10,10 +10,13 @@ hue:
     password: "hue"
     name: "hue"
   interpreters: |
-    [[[postgresql]]]
-      name = postgresql
-      interface=sqlalchemy
-      options='{"url": "postgresql://hue:hue@hue-database:5432/hue"}'
+    [[[impala]]]
+      name=Impala
+      interface=hiveserver2
+    #[[[postgresql]]]
+     # name = postgresql
+      #interface=sqlalchemy
+      #options='{"url": "postgresql://hue:hue@hue-database:5432/hue"}'
 aws:
   accessKeyId: ""
   secretAccessKey: ""

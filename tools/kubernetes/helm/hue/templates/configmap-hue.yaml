@@ -5,6 +5,8 @@ metadata:
 data:
   hue-ini: |
     [desktop]
+    app_blacklist=filebrowser,oozie,search,hbase,security,jobbrowser,metastore
+
     [[database]]
     engine={{ .Values.hue.database.engine }}
     host={{ .Values.hue.database.host }}
@@ -13,6 +15,9 @@ data:
     password={{ .Values.hue.database.password }}
     name={{ .Values.hue.database.name }}
 
+    [impala]
+    server_host=172.31.114.171
+
     [aws]
     [[aws_accounts]]
     [[[default]]]
@@ -20,6 +25,13 @@ data:
     secret_access_key={{ .Values.aws.awsSecretAccessKey }}
     region={{ .Values.aws.awsRegion }}
 
+    [dashboard]
+    is_enabled=false
+    has_sql_enabled=false
+
     [notebook]
+    show_notebooks=false
     [[interpreters]]
     {{ .Values.hue.interpreters | indent 4 }}
+
+    [hadoop]
