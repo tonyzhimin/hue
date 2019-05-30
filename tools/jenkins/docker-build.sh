@@ -73,7 +73,7 @@ push_httpd() {
   docker push $DOCKER_REGISTRY/$HTTPDIMAGE 1>$DOCKER_LOG 2>&1
 }
 
-build_base
+#build_base
 compile_webapp
 build_webapp
 push_webapp
